@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Detalhes dos Gastos 💰</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <div class="container">
+    <h1>📋 Detalhes dos Gastos</h1>
+    <a href="/" class="voltar">⬅️ Voltar</a>
+
+    <!-- Filtros -->
+    <form method="get" action="/detalhes" class="filtros-detalhes">
+      <div>
+        <label for="mes">Mês:</label>
+        <select name="mes" id="mes" onchange="this.form.submit()">
+          <option value="todos" {% if mes_selecionado == 'todos' %}selected{% endif %}>Todos</option>
+          {% for m in meses %}
+            <option value="{{ m.mes }}" {% if mes_selecionado == m.mes|string %}selected{% endif %}>
+              {{ m.nome_mes }}
+            </option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div>
+        <label for="categoria">Categoria:</label>
+        <select name="categoria" id="categoria" onchange="this.form.submit()">
+          <option value="todas" {% if categoria_selecionada == 'todas' %}selected{% endif %}>Todas</option>
+          {% for c in categorias %}
+            <option value="{{ c }}" {% if categoria_selecionada == c %}selected{% endif %}>{{ c|capitalize }}</option>
+          {% endfor %}
+        </select>
+      </div>
+    </form>
+
+    <!-- Tabela de resultados -->
+    {% if gastos %}
+      <table class="tabela-detalhes">
+        <thead>
+          <tr>
+            <th>Data</th>
+            <th>Descrição</th>
+            <th>Categoria</th>
+            <th>Valor (R$)</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for g in gastos %}
+            <tr>
+              <td>{{ g.data }}</td>
+              <td>{{ g.descricao }}</td>
+              <td>{{ g.categoria|capitalize }}</td>
+              <td>R$ {{ "%.2f"|format(g.valor) }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <div class="total-detalhes">
+        💸 Total filtrado: <strong>R$ {{ "%.2f"|format(total) }}</strong>
+      </div>
+    {% else %}
+      <p class="sem-gastos">Nenhum gasto encontrado nesse filtro 😅</p>
+    {% endif %}
+  </div>
+</body>
+</html>

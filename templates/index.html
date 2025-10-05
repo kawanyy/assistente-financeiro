@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Assistente Financeiro 💜</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>Assistente Financeiro 💸</h1>
+    <p class="subtitle">Acompanhe seus gastos com estilo ✨</p>
+
+    <!-- Formulário para adicionar (usa POST normal -> /adicionar) -->
+    <form id="gastoForm" action="/adicionar" method="POST">
+      <input type="text" name="descricao" placeholder="Descrição" required>
+      <input type="number" name="valor" placeholder="Valor (R$)" step="0.01" required>
+      <select name="categoria" required>
+        <option value="">Selecione a categoria</option>
+        <option value="transporte">Transporte</option>
+        <option value="alimentacao">Alimentação</option>
+        <option value="roupas">Roupas</option>
+        <option value="lazer">Lazer</option>
+        <option value="outros">Outros</option>
+      </select>
+      <button type="submit">Adicionar Gasto</button>
+    </form>
+
+    <div class="grafico-section">
+      <h2>📊 Gráfico de Gastos</h2>
+
+      <div class="grafico-filtros">
+        <label for="periodoGrafico">Período:</label>
+        <select id="periodoGrafico">
+          <option value="1">Último mês</option>
+          <option value="2">Últimos 2 meses</option>
+          <option value="3">Últimos 3 meses</option>
+          <option value="4">Últimos 4 meses</option>
+          <option value="6">Últimos 6 meses</option>
+          <option value="12">Últimos 12 meses</option>
+        </select>
+      </div>
+
+      <canvas id="graficoGastos" width="400" height="400"></canvas>
+      <div id="totalGeral" class="total-geral">Carregando...</div>
+
+      <div style="margin-top: 20px;">
+  <a href="/detalhes" class="btn-voltar">📋 Ver Detalhes dos Gastos</a>
+</div>
+
+
+      <!-- botão de diagnóstico (opcional) -->
+      <div style="margin-top:10px;">
+        <button id="bt-debug" type="button">Mostrar últimos registros (debug)</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

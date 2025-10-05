@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Registrar - Assistente Financeiro</title>
+  <style>
+    body { background: #1a1a1a; color: #fff; font-family: Arial; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; }
+    form { background: #2a2a2a; padding: 2rem; border-radius: 12px; width: 300px; text-align: center; }
+    input { width: 100%; padding: 8px; margin: 10px 0; border: none; border-radius: 6px; }
+    button { background: #3a0ca3; color: #fff; border: none; padding: 10px; width: 100%; border-radius: 6px; cursor: pointer; }
+    a { color: #4895ef; text-decoration: none; font-size: 0.9em; }
+    .erro { color: #ff4d6d; }
+  </style>
+</head>
+<body>
+  <form method="post">
+    <h2>📝 Criar conta</h2>
+    <input type="text" name="nome" placeholder="Seu nome" required>
+    <input type="email" name="email" placeholder="E-mail" required>
+    <input type="password" name="senha" placeholder="Senha" required>
+    <button type="submit">Registrar</button>
+    {% if erro %}<p class="erro">{{ erro }}</p>{% endif %}
+    <p><a href="/login">Voltar ao login</a></p>
+  </form>
+</body>
+</html>
